@@ -63,7 +63,11 @@ router.post('/signIn', async (req, res) => {
         }
         const enc_pw = await crypto.confirmPw(password, user[0].SALT);
         if(user[0].USER_PWD === enc_pw) {
-            res.render('w_main.ejs', {data:user});
+            const eth_addr = await crypto.decryptAES(user[0].USER_WALLET_ADDR);
+            const balance = await wallet.getBalance(eth_addr);
+            user[0].balance = balance.balance;
+            user[0].eth_addr = eth_addr;
+            res.render('w_main.ejs', {data:user[0]});
         }else{
             res.send("<script>alert('이메일과 패스워드를 확인하세요.');location.href='/';</script>");
         }
@@ -72,6 +76,46 @@ router.post('/signIn', async (req, res) => {
         res.send('로그인 에러');
     }
 });
+
+// 코인 보내기 패이지
+router.post('/sendPage', async (req, res) => {
+    try {
+        const reqData = {
+            my_addr : req.body.my_addr,
+            my_prik : req.body.my_prik,
+            user_nmae : req.body.user_nmae,
+            balance : req.body.balance
+        }
+        console.log("my_addr = "+req.body.my_addr)
+        res.render('w_send.ejs', {reqData});
+    }catch (e) {
+        console.log(e);
+        res.send('sendPage 에러');
+    }
+});
+
+// 코인 보내기
+router.post('/send', async (req, res) => {
+    try {
+        const reqData = {
+            my_addr : req.body.my_addr,
+            my_prik : req.body.my_prik,
+            to_addr : req.body.to_addr,
+            send_num : req.body.send_num
+        }
+        const pri_key = await crypto.decryptAES(req.body.my_prik);
+        const result = await wallet.sendCoin(req.body.to_addr, req.body.my_addr, pri_key, req.body.send_num);
+        console.log(result)
+        res.render('w_result.ejs', {result});
+    }catch (e) {
+        console.log('코인 전송 에러');
+        console.log(e);
+        res.send('코인 전송 에러');
+    }
+});
+
+
+//--------------------------------------
 // mnemonic 생성
 router.post('/newMnemnic', async (req, res) => {
     try {
@@ -176,6 +220,39 @@ router.post('/sendCoin', async (req, res) => {
     }catch (e) {
         console.log(e);
         res.send('코인 전송 에러');
+    }
+});
+
+
+router.post('/cryptoen', async (req, res) => {
+    try {
+        const de = await crypto.encryptAES(req.body.pw);
+        console.log('de = '+de)
+        res.send('de 생성 성공 '+de);
+    }catch (e) {
+        console.log(e);
+        res.send('de 생성 에러');
+    }
+});
+router.post('/cryptode', async (req, res) => {
+    try {
+        const de = await crypto.decryptAES(req.body.pw);
+        console.log('de = '+de)
+        res.send('de 생성 성공 '+de);
+    }catch (e) {
+        console.log(e);
+        res.send('de 생성 에러');
+    }
+});
+
+router.post('/cryptopwd', async (req, res) => {
+    try {
+        const de = await crypto.encryption(req.body.pw);
+        console.log('de = '+de)
+        res.send(de);
+    }catch (e) {
+        console.log(e);
+        res.send('de 생성 에러');
     }
 });
 
