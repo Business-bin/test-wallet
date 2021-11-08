@@ -1,26 +1,16 @@
-1. ehth-lightwallet, web3 모듈을 사용한 간단한 이더리움 월렛 만들기
-    1) mnemonic코드(임의의 영문 12개 단어) 생성 (mnemonic : 지갑 생성 및 복구에 필요한 12개의 영단어 값)
-    2) mnemonic코드와 password를 사용해서 keystore만들고 관리하기
-    3) keystore를 사용해 tx에 서명을하고 , tx를 생성하여 이더리움블록체인에 배포하기 (코인보내기)
-    4) mnemonic코드 복구, 내 keystore복구등등 다양한 기능 테스트
-   
-   Private Key(개인 키) : 
-      '주소'와 프라이빗 키는 쌍으로 존재한다. 해당 주소로 접근하기 위한 키이며 찾기나 변경 불가능
-   
-   Keystore File :
-      Private Key를 Password로 암호화 한 파일
-   
-   Mnemonic :
-      12개(혹은 24개)의 영단어로 구성된 지갑 생성, 복구에 필요한 값.
+ethereumjs-wallet, ethereumjs-tx, web3 모듈을 사용한 간단한 이더리움 월렛 만들기 입니다.
 
+혹시 소스를 돌려보고 싶으신 분은
 
-1. EOA(사용자 계정)가 트랜잭션을 발생(발생한 트랜잭션에는 nonce/to/value/gasLimit/gasPrice/data 등이 들어감)
-2. 발생한 트랜잭션을 사용자가 가지고 있는 지갑의 pk로 전자서명(Sign)을 함(전자 서명 암호화 방식)
-3. Sign된 트랜잭션을 이더리움 네트워크의 노드들에게 보냄(트랜잭션을 브로드캐스트)
-4. 노드(채굴자)들은 해당 트랜잭션의 유효성 검증을 함
-5. 해당 트랜잭션이 문법에 맞게 구성되었는지
-6. 사용자의 공개 키를 사용하여 해당 전자 서명이 유효한지
-7. 사용자 어카운트에 있는 Nonce와 맞는지
-8. 해당 트랜잭션이 유효하면, 해당 트랜잭션은 트랜잭션 풀(Tx pool)에 보관됨
-9. 채굴자들은 수수료가 높은 순서대로 트랜잭션을 처리함
-10. 여러 트랜잭션이 블록에 포함되고 블록이 생성되면, 모든 노드들에게 신규 블록이 전달됨(신규 블록 브로드캐스트).
+1. npm install 
+
+2. https://infura.io/ 
+    위 사이트에 가서 계정 생성 후 프로젝트를 생성하고 Infura Project ID를 받으셔야 합니다
+    본인은 ropsten 테스트넷으로 진행하였습니다
+    
+3. .env 파일 생성
+PASSWORD_SECRET=암호화키
+db_pw=데이터베이스pw
+api_key=Infura Project ID
+
+4. npm run dev
