@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= reqData.user_nmae%> 님의 ETHEREUM 지갑</title>
+    <style>
+        .tdtext{
+            width: 350px;
+        }
+        .numtext{
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<h3><%= reqData.user_nmae%> 님의 ETHEREUM 지갑</h3>
+<form action="/wallet/send" method="post">
+    <table>
+        <tr>
+            <td>ETHEREUM 잔액 : </td>
+            <td><input type="text" name="eth_balance" class="numtext" readonly="true" value="<%= reqData.balance%>"> eth</td>
+        </tr>
+        <tr>
+            <td>보낼 주소 : </td>
+            <td><input type="text" name="to_addr" class="tdtext" ></td>
+        </tr>
+        <tr>
+            <td>보낼 수량 : </td>
+            <td><input type="text" name="send_num" class="numtext" ></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="보내기"></td>
+        </tr>
+        <input type="hidden" name="user_email" value="<%= reqData.user_email%>">
+        <input type="hidden" name="my_addr" value="<%= reqData.my_addr%>">
+        <input type="hidden" name="my_prik" value="<%= reqData.my_prik%>">
+    </table>
+</form>
+<!--<form action="/wallet/signUp" method="get">
+    <input type="submit" value="sign up" action>
+</form>-->
+</body>
+</html>

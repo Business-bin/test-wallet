@@ -1,15 +1,62 @@
+<script>
+    const sendPage = () => {
+        // alert("111")
+        document.sendForm.action = '/wallet/sendPage';
+        document.sendForm.method="post";
+        document.sendForm.submit();
+    }
+
+    const txPage = () => {
+        // alert("111")
+        document.txForm.action = '/wallet/txPage';
+        document.txForm.method="post";
+        document.txForm.submit();
+    }
+</script>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><%= data[0].USER_NM%> 님의 ETHEREUM 지갑</title>
+    <title><%= data.USER_NM%> 님의 ETHEREUM 지갑</title>
+    <style>
+        .tdtext{
+            width: 350px;
+        }
+        .numtext{
+            text-align: right;
+        }
+        .btn{
+            width: 90px;
+        }
+    </style>
 </head>
 <body>
-<h3><%= data[0].USER_NM%> 님의 ETHEREUM 지갑</h3>
+<h3><%= data.USER_NM%> 님의 ETHEREUM 지갑</h3>
     <table>
         <tr>
+            <td>내 주소 : </td>
+            <td><input type="text" name="eth_addr" class="tdtext" readonly="true" value="<%= data.eth_addr%>"></td>
+        </tr>
+        <tr>
             <td>ETHEREUM 잔액 : </td>
-            <td><input type="text" name="eth_balance"> eth</td>
+            <td><input type="text" name="eth_balance" class="numtext" readonly="true" value="<%= data.balance%>"> eth</td>
+        </tr>
+        <tr>
+<!--            <td><input type="button" name="send_btn" value="보내기" onClick="location.href='sendPage()'"></td>-->
+            <form name="sendForm">
+                <td><input type="button" name="send_btn" class="btn" value="보내기" onClick="sendPage()"></td>
+                <input type="hidden" name="user_email" value="<%= data.USER_EMAIL%>">
+                <input type="hidden" name="my_addr" value="<%= data.eth_addr%>">
+                <input type="hidden" name="my_prik" value="<%= data.USER_WALLET_PRIK%>">
+                <input type="hidden" name="balance" value="<%= data.balance%>">
+                <input type="hidden" name="user_nmae" value="<%= data.USER_NM%>">
+            </form>
+            <form name="txForm">
+                <td><input type="button" name="send_btn" class="btn"  value="활동" onClick="txPage()"></td>
+                <input type="hidden" name="balance02" value="<%= data.balance%>">
+                <input type="hidden" name="my_nmae" value="<%= data.USER_NM%>">
+                <input type="hidden" name="my_email" value="<%= data.USER_EMAIL%>">
+            </form>
         </tr>
     </table>
 </body>
