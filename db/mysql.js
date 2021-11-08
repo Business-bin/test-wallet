@@ -38,6 +38,27 @@ DB.setUserInfo = async(email, pwd, name, mnemonic, addr, pri_key, pub_key, salt)
     return rows;
 }
 
+DB.setTxInfo = async(email,tx) => {
+    const sql =   "INSERT INTO TX_INFO (USER_EMAIL, TX, REG_DTTM) " +
+        "VALUES (?, ?, NOW())";
+    const params = [
+        email,
+        tx
+    ];
+    const [rows] = await DB.conn.query(sql, params);
+    return rows;
+}
+
+
+DB.getTxInfo = async(email) => {
+    const sql =   "SELECT * " +
+        "  FROM TX_INFO " +
+        "  WHERE USER_EMAIL = ? " +
+        "  ORDER BY REG_DTTM DESC ";
+    const params = [email];
+    const [rows] = await DB.conn.query(sql, params);
+    return rows;
+}
 
 module.exports = DB;
 //

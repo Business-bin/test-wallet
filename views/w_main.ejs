@@ -34,6 +34,7 @@
 <!--            <td><input type="button" name="send_btn" value="보내기" onClick="location.href='sendPage()'"></td>-->
             <form name="sendForm">
                 <td><input type="button" name="send_btn" value="보내기" onClick="sendPage()"></td>
+                <input type="hidden" name="user_email" value="<%= data.USER_EMAIL%>">
                 <input type="hidden" name="my_addr" value="<%= data.eth_addr%>">
                 <input type="hidden" name="my_prik" value="<%= data.USER_WALLET_PRIK%>">
                 <input type="hidden" name="balance" value="<%= data.balance%>">
@@ -41,8 +42,9 @@
             </form>
             <form name="txForm">
                 <td><input type="button" name="send_btn" value="활동" onClick="txPage()"></td>
-                <input type="hidden" name="balance" value="<%= data.balance%>">
-                <input type="hidden" name="user_nmae" value="<%= data.USER_NM%>">
+                <input type="hidden" name="balance02" value="<%= data.balance%>">
+                <input type="hidden" name="my_nmae" value="<%= data.USER_NM%>">
+                <input type="hidden" name="my_email" value="<%= data.USER_EMAIL%>">
             </form>
         </tr>
     </table>

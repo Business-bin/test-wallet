@@ -77,10 +77,11 @@ router.post('/signIn', async (req, res) => {
     }
 });
 
-// 코인 보내기 패이지
+// 코인 보내기 페이지
 router.post('/sendPage', async (req, res) => {
     try {
         const reqData = {
+            user_email : req.body.user_email,
             my_addr : req.body.my_addr,
             my_prik : req.body.my_prik,
             user_nmae : req.body.user_nmae,
@@ -98,13 +99,19 @@ router.post('/sendPage', async (req, res) => {
 router.post('/send', async (req, res) => {
     try {
         const reqData = {
+            user_email : req.body.user_email,
             my_addr : req.body.my_addr,
             my_prik : req.body.my_prik,
             to_addr : req.body.to_addr,
             send_num : req.body.send_num
         }
         const pri_key = await crypto.decryptAES(req.body.my_prik);
-        const result = await wallet.sendCoin(req.body.to_addr, req.body.my_addr, pri_key, req.body.send_num);
+        const result = await wallet.sendCoin(req.body.to_addr, req.body.my_addr, pri_key, req.body.send_num, req.body.user_email);
+        // const result = await wallet.sendCoin(req.body.to_addr, req.body.my_addr, pri_key, req.body.send_num, (err, data) => {
+        //     if(err)
+        //         throw Error("전송 에러")
+        //     console.log("data = "+data)
+        // });
         console.log(result)
         res.render('w_result.ejs', {result});
     }catch (e) {
@@ -114,8 +121,40 @@ router.post('/send', async (req, res) => {
     }
 });
 
+// 활동 페이지
+router.post('/txPage', async (req, res) => {
+    try {
+        const reqData = {
+            balance : req.body.balance02,
+            my_nmae : req.body.my_nmae,
+            my_email : req.body.my_email
+        }
+        const data = await db.getTxInfo(req.body.my_email);
+        console.log(data)
+        reqData.data = data;
+        res.render('w_txInfo.ejs', {reqData});
+    }catch (e) {
+        console.log(e);
+        res.send('txPage 에러');
+    }
+});
 
 //--------------------------------------
+// mnemonic 생성
+router.post('/getTransactionCount', async (req, res) => {
+    try {
+        const tran = await web3.eth.getTransactionCount(req.body.addr, (err, cnt) => {
+            console.log("cnt = "+cnt);
+        });
+        console.log('tran = '+tran)
+        res.send('tran '+tran);
+    }catch (e) {
+        console.log('getTransactionCount 에러');
+        console.log(e);
+        res.send('getTransactionCount 에러');
+    }
+});
+
 // mnemonic 생성
 router.post('/newMnemnic', async (req, res) => {
     try {
@@ -223,28 +262,32 @@ router.post('/sendCoin', async (req, res) => {
     }
 });
 
-
+// 양방향 암호화
 router.post('/cryptoen', async (req, res) => {
     try {
-        const de = await crypto.encryptAES(req.body.pw);
+        const de = await crypto.encryptAES(req.body.str);
         console.log('de = '+de)
-        res.send('de 생성 성공 '+de);
-    }catch (e) {
-        console.log(e);
-        res.send('de 생성 에러');
-    }
-});
-router.post('/cryptode', async (req, res) => {
-    try {
-        const de = await crypto.decryptAES(req.body.pw);
-        console.log('de = '+de)
-        res.send('de 생성 성공 '+de);
+        res.send('암호화 '+de);
     }catch (e) {
         console.log(e);
         res.send('de 생성 에러');
     }
 });
 
+// 양방향 복호화
+router.post('/cryptode', async (req, res) => {
+    try {
+        const de = await crypto.decryptAES(req.body.str);
+        console.log('de = '+de)
+        res.send('복호화 '+de);
+    }catch (e) {
+        console.log(e);
+        res.send('de 생성 에러');
+    }
+});
+
+
+// 패스워드 암호화
 router.post('/cryptopwd', async (req, res) => {
     try {
         const de = await crypto.encryption(req.body.pw);

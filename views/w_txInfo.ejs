@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= reqData.user_nmae%> 님의 ETHEREUM 지갑</title>
+</head>
+<body>
+<h3><%= reqData.user_nmae%> 님의 ETHEREUM 지갑</h3>
+<form>
+    <table>
+        <tr>
+            <td>ETHEREUM 잔액 : </td>
+            <td><input type="text" name="eth_balance" value="<%= reqData.balance%>"> eth</td>
+        </tr>
+        <tr>
+            <td>--------------------</td>
+            <td>--------------------</td>
+        </tr>
+        <tr>
+            <td>txId </td>
+            <td>date </td>
+        </tr>
+        <% if(reqData.data) { %>>
+                <% for(let i=0;i<reqData.data.length;i++){ %>
+                    <tr>
+                        <td><input type="text" name="txId" value="<%= reqData.data[i].TX%>"></td>
+                        <td><input type="text" name="date" value="<%= reqData.data[i].REG_DTTM%>"></td>
+                    </tr>
+                <% } %>
+        <% } %>
+    </table>
+</form>
+</body>
+</html>
