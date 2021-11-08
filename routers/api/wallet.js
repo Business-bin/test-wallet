@@ -130,7 +130,6 @@ router.post('/txPage', async (req, res) => {
             my_email : req.body.my_email
         }
         const data = await db.getTxInfo(req.body.my_email);
-        console.log(data)
         reqData.data = data;
         res.render('w_txInfo.ejs', {reqData});
     }catch (e) {

@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title><%= reqData.user_nmae%> 님의 ETHEREUM 지갑</title>
+    <style>
+        .tdtext{
+            width: 350px;
+        }
+        .numtext{
+            text-align: right;
+        }
+    </style>
 </head>
 <body>
 <h3><%= reqData.user_nmae%> 님의 ETHEREUM 지갑</h3>
@@ -10,15 +18,15 @@
     <table>
         <tr>
             <td>ETHEREUM 잔액 : </td>
-            <td><input type="text" name="eth_balance" value="<%= reqData.balance%>"> eth</td>
+            <td><input type="text" name="eth_balance" class="numtext" readonly="true" value="<%= reqData.balance%>"> eth</td>
         </tr>
         <tr>
             <td>보낼 주소 : </td>
-            <td><input type="text" name="to_addr"></td>
+            <td><input type="text" name="to_addr" class="tdtext" ></td>
         </tr>
         <tr>
             <td>보낼 수량 : </td>
-            <td><input type="text" name="send_num"></td>
+            <td><input type="text" name="send_num" class="numtext" ></td>
         </tr>
         <tr>
             <td><input type="submit" value="보내기"></td>

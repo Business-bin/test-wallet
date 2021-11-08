@@ -95,7 +95,6 @@ exports.sendCoin = async (to_addr, from_addr, pri_key, coin_num, user_email) => 
         const result = {
             msg : "코인 전송 성공"
             , sendRes
-            , tx_id
         }
         return result;
     }catch (e) {
