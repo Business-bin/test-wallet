@@ -75,21 +75,21 @@ exports.sendCoin = async (to_addr, from_addr, pri_key, coin_num, user_email) => 
             const tx = new Tx(txObj, {'chain': 3});
 
             // 트랜잭션에 서명
-            const privateKey = Buffer.from(pri_key, 'hex')
-            tx.sign(privateKey)
+            const privateKey = Buffer.from(pri_key, 'hex');
+            tx.sign(privateKey);
 
             // 트랜잭션 전송
             const serializedTx = '0x' + tx.serialize().toString('hex')
-            const resTx = await web3.eth.sendSignedTransaction(serializedTx, async (err, txId) => {
+            // const resTx = await web3.eth.sendSignedTransaction(serializedTx, async (err, txId) => {
+            const resTx = await web3.eth.sendSignedTransaction(serializedTx, (err, txId) => {
                 if (!err) {
-                    console.log('txId11 = ' + txId)
-                    const insertTx = await db.setTxInfo(user_email, txId);
-                    console.log('insertTx = ' + insertTx)
+                    console.log('txId11 = ' + txId);
                 } else {
-                    console.log(err)
+                    console.log(err);
                 }
             })
-            console.log('resTx = ' + resTx)
+            console.log(resTx)
+            const insertTx = await db.setTxInfo(user_email, resTx.transactionHash);
         });
 
         const result = {
@@ -99,6 +99,6 @@ exports.sendCoin = async (to_addr, from_addr, pri_key, coin_num, user_email) => 
         return result;
     }catch (e) {
         console.log(e);
-        return {msg : 'fail'}
+        return {msg : 'fail'};
     }
 }
