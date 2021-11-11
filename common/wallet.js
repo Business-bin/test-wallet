@@ -54,7 +54,7 @@ exports.getBalance = async (addr) => {
 };
 
 // 코인 전송
-exports.sendCoin = async (to_addr, from_addr, pri_key, coin_num, user_email) => { 
+exports.sendCoin = async (to_addr, from_addr, pri_key, coin_num, user_email) => {
     try {
         const gas = await web3.eth.getGasPrice();
         let tx_id = '';
