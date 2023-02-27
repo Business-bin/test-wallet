@@ -1,6 +1,5 @@
 ethereumjs-wallet, ethereumjs-tx, web3 모듈을 사용한 간단한 이더리움 월렛 만들기 입니다.
 
-혹시 소스를 돌려보고 싶으신 분은
 
 1. npm install 
 
