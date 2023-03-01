@@ -19,14 +19,54 @@
     <meta charset="UTF-8">
     <title><%= data.USER_NM%> 님의 ETHEREUM 지갑</title>
     <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h3 {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        table {
+            margin: auto;
+            width: 45%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+
+        td {
+            padding: 10px;
+        }
+
+        input[type=text], input[type=password], input[type=button], input[type=submit] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
         .tdtext{
-            width: 350px;
+            /*width: 350px;*/
+            width: 48%;
         }
         .numtext{
             text-align: right;
         }
         .btn{
             width: 90px;
+            background-color: #4CAF50;
+            border: none;
+            color: #FFFFFF;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out;
         }
     </style>
 </head>
@@ -39,7 +79,7 @@
         </tr>
         <tr>
             <td>ETHEREUM 잔액 : </td>
-            <td><input type="text" name="eth_balance" class="numtext" readonly="true" value="<%= data.balance%>"> eth</td>
+            <td><input type="text" name="eth_balance" class="numtext" readonly="true" value="<%= data.balance%> eth"></td>
         </tr>
         <tr>
 <!--            <td><input type="button" name="send_btn" value="보내기" onClick="location.href='sendPage()'"></td>-->

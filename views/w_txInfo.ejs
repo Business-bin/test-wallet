@@ -4,40 +4,66 @@
     <meta charset="UTF-8">
     <title><%= reqData.user_nmae%> 님의 ETHEREUM 지갑</title>
     <style>
-        .td1 {
-            width: 500px;;
+        table {
+            border-collapse: collapse;
+            width: 65%;
         }
-        .td2 {
-            width: 50px;;
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
         }
-        .td3 {
-            width: 500px;;
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .tr01 {
+            color: darkgray;
+        }
+
+        .txid {
+            width: 70%;
+        }
+
+        .date {
+            width: 30%;
+        }
+
+        .balance {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .separator {
+            height: 1px;
+            background-color: #ddd;
         }
     </style>
 </head>
 <body>
 <h3><%= reqData.user_nmae%> 님의 ETHEREUM 지갑</h3>
 <form>
-    <table>
+    <table border="1">
         <tr>
             <td colspan="3">ETHEREUM 잔액 : <%= reqData.balance%></td>
         </tr>
         <tr>
             <td colspan="3">
-                --------------------------------------------------------------------------------
-                --------------------------------------------------------------------------------
             </td>
         </tr>
         <tr>
-            <td class=".td1">txId </td>
-            <td class=".td2">&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</td>
-            <td class=".td3">date </td>
+            <td class=".td1" style="background-color: #d9c5c5;">txId </td>
+<!--            <td class=".td2" style="background-color: #d9c5c5;">&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</td>-->
+            <td class=".td3" style="background-color: #d9c5c5;">date </td>
         </tr>
         <% if(reqData.data) { %>>
                 <% for(let i=0;i<reqData.data.length;i++){ %>
                     <tr>
                         <td class=".td1"><%= reqData.data[i].TX%></td>
-                        <td class=".td2">&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</td>
+<!--                        <td class=".td2">&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</td>-->
                         <td class=".td3"><%= reqData.data[i].REG_DTTM%></td>
                     </tr>
                 <% } %>
