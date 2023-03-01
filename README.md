@@ -1,9 +1,6 @@
 ethereumjs-wallet, ethereumjs-tx, web3 모듈을 사용한 간단한 이더리움 월렛 만들기 입니다.
 
-<<<<<<< HEAD
-=======
 node version : v18.14.2 database : mysql
->>>>>>> bsb-003-wallet003
 
 실행 방법
 
