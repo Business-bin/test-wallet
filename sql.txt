@@ -1,0 +1,24 @@
+Database Name : wallet-sample
+
+CREATE TABLE `USER_INFO` (
+  `USER_SQ` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT '회원고유번호',
+  `USER_EMAIL` varchar(255) NOT NULL COMMENT '회원이메일',
+  `USER_PWD` varchar(255) NOT NULL COMMENT '회원암호',
+  `SALT` varchar(255) NOT NULL COMMENT '솔트',
+  `USER_NM` varchar(50) NOT NULL COMMENT '회원이름',
+  `USER_MNEMONIC` varchar(255) NOT NULL COMMENT '니모닉',
+  `USER_WALLET_ADDR` varchar(255) NOT NULL COMMENT '지갑주소',
+  `USER_WALLET_PRIK` varchar(255) NOT NULL COMMENT '개인키',
+  `USER_WALLET_PUBK` varchar(255) NOT NULL COMMENT '공개키',
+  `RCNT_CON_DTTM` datetime DEFAULT NULL COMMENT '최종접속일시',
+  `REG_DTTM` datetime NOT NULL COMMENT '등록일시',
+  PRIMARY KEY (`USER_SQ`,`USER_EMAIL`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='회원정보';
+
+CREATE TABLE `TX_INFO` (
+  `TX_SQ` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'tx고유번호',
+  `USER_EMAIL` varchar(255) NOT NULL COMMENT '회원이메일',
+  `TX` varchar(255) NOT NULL COMMENT 'tx id',
+  `REG_DTTM` datetime NOT NULL COMMENT '등록일시',
+  PRIMARY KEY (`TX_SQ`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='트랜젝션 정보';
