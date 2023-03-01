@@ -4,6 +4,57 @@
     <meta charset="UTF-8">
     <title><%= reqData.user_nmae%> 님의 ETHEREUM 지갑</title>
     <style>
+        body {
+            background-color: #F9F9F9;
+            font-family: Arial, sans-serif;
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+        }
+        h3 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        form {
+            background-color: #FFFFFF;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            max-width: 500px;
+            padding: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin: 0 auto;
+            width: 100%;
+        }
+        td {
+            padding: 10px;
+            text-align: center;
+            vertical-align: middle;
+        }
+        input[type="text"], input[type="password"], input[type="submit"] {
+            border: 1px solid #CCCCCC;
+            border-radius: 3px;
+            box-sizing: border-box;
+            display: block;
+            font-size: 16px;
+            margin: 10px auto;
+            padding: 10px;
+            width: 100%;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            border: none;
+            color: #FFFFFF;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s ease-in-out;
+        }
+        input[type="submit"]:hover {
+            background-color: #3E8E41;
+            width: 100%;
+        }
         .tdtext{
             width: 350px;
         }
@@ -18,7 +69,7 @@
     <table>
         <tr>
             <td>ETHEREUM 잔액 : </td>
-            <td><input type="text" name="eth_balance" class="numtext" readonly="true" value="<%= reqData.balance%>"> eth</td>
+            <td><input type="text" name="eth_balance" class="numtext" readonly="true" value="<%= reqData.balance%> eth"></td>
         </tr>
         <tr>
             <td>보낼 주소 : </td>
