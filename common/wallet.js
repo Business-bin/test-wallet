@@ -41,7 +41,7 @@ exports.getBalance = async (addr) => {
         balance =  web3.utils.fromWei(balance,"ether");
         // let balance = await web3.utils.fromWei(web3.eth.getBalance(addr), 'ether'); // wallet address
         // balance = await web3.utils.fromWei(balance, 'ether');
-        console.log(balance);
+        console.log("balance: " + balance);
         const result = {
             msg : "balance 조회 성공"
             , balance
@@ -72,7 +72,9 @@ exports.sendCoin = async (to_addr, from_addr, pri_key, coin_num, user_email) => 
                 gasPrice: web3.utils.toHex(gas), // 가스(수수료) 가격
                 gasLimit: web3.utils.toHex(300000)
             }
-            const tx = new Tx(txObj, {'chain': 3});
+
+            // const tx = new Tx(txObj, {'chain': 3});
+            const tx = new Tx(txObj, {'chain': 'goerli'});
 
             // 트랜잭션에 서명
             const privateKey = Buffer.from(pri_key, 'hex');
@@ -85,6 +87,7 @@ exports.sendCoin = async (to_addr, from_addr, pri_key, coin_num, user_email) => 
                 if (!err) {
                     console.log('txId11 = ' + txId);
                 } else {
+                    console.log("err = "+err);
                     console.log(err);
                 }
             })

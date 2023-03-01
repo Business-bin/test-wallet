@@ -64,6 +64,8 @@ router.post('/signIn', async (req, res) => {
         const enc_pw = await crypto.confirmPw(password, user[0].SALT);
         if(user[0].USER_PWD === enc_pw) {
             const eth_addr = await crypto.decryptAES(user[0].USER_WALLET_ADDR);
+            // const eth_pri_addr = await crypto.decryptAES(user[0].USER_WALLET_PRIK);
+            // console.log("eth_pri_addr: " + eth_pri_addr)
             const balance = await wallet.getBalance(eth_addr);
             user[0].balance = balance.balance;
             user[0].eth_addr = eth_addr;
@@ -239,14 +241,12 @@ router.post('/sendCoin', async (req, res) => {
 
             // 트랜잭션 전송
             const serializedTx = '0x' + tx.serialize().toString('hex')
-            console.log("111111111111111111")
             const resTx = web3.eth.sendSignedTransaction(serializedTx, (err, txId) =>{
                 if(!err)
                     console.log('txId ='+txId)
                 else
                     console.log(err)
             })
-            console.log("22222222222222222")
             console.log(resTx)
         });
 
